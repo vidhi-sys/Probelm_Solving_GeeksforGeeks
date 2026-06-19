@@ -1,18 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
-    static List<Integer> minPartition(int N) {
-        ArrayList<Integer> coins = new ArrayList<>();
-        int[] arr = {2000, 500, 200, 100, 50, 20, 10, 5, 2, 1}; // Sorted in descending order
-        
-        for (int i = 0; i < arr.length; i++) {
-            while (N >= arr[i]) {
-                N -= arr[i];
-                coins.add(arr[i]);
+    public int findMin(int n) {
+        int ans = 0;
+        int rem = n;
+
+        while (rem != 0) {
+            if (rem >= 10) {
+                rem -= 10;
+            } 
+            else if (rem >= 5) {
+                rem -= 5;
+            } 
+            else if (rem >= 2) {
+                rem -= 2;
+            } 
+            else {
+                rem -= 1;
             }
+            ans++;
         }
-        
-        return coins;
+        return ans;
     }
 }
