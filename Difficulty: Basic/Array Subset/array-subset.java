@@ -1,18 +1,30 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 class Solution {
     public boolean isSubset(int a[], int b[]) {
-        Map<Integer, Integer> freq = new HashMap<>();
-        for (int num : a) {
-            freq.put(num, freq.getOrDefault(num, 0) + 1);
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer, Integer> map2 = new HashMap<>();
+
+        // Frequency of elements in a
+        for (int ele : a) {
+            map.put(ele, map.getOrDefault(ele, 0) + 1);
         }
-        for (int num : b) {
-            if (freq.getOrDefault(num, 0) == 0) {
+
+        // Frequency of elements in b
+        for (int ele : b) {
+            map2.put(ele, map2.getOrDefault(ele, 0) + 1);
+        }
+
+        // Check frequencies
+        for (int ele : map2.keySet()) {
+            if (!map.containsKey(ele))
                 return false;
-            }
-            freq.put(num, freq.get(num) - 1);
+
+            if (map.get(ele) < map2.get(ele))
+                return false;
         }
+
         return true;
     }
 }
