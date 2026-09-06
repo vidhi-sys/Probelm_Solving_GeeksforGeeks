@@ -1,24 +1,22 @@
 class Solution {
-    public int findMaxSum(int arr[]) {
-
-        int n = arr.length;
-
-        if (n == 1)
-            return arr[0];
-
-        int prev2 = arr[0];
-        int prev1 = Math.max(arr[0], arr[1]);
-
-        for (int i = 2; i < n; i++) {
-            int take = prev2 + arr[i];
-            int notTake = prev1;
-
-            int curr = Math.max(take, notTake);
-
-            prev2 = prev1;
-            prev1 = curr;
+    public int amount(int[]arr,int i,int[]dp){
+        if(i>=arr.length){
+            return 0;
         }
-
-        return prev1;
+        if(dp[i]!=-1){
+            return dp[i];
+        }
+        int take=arr[i]+amount(arr,i+2,dp);
+        int skip=amount(arr,i+1,dp);
+        return dp[i]=Math.max(take,skip);
+    }
+    public int findMaxSum(int arr[]) {
+        // code here
+        int n=arr.length;
+        int[]dp=new int[n+1];
+        Arrays.fill(dp,-1);
+        return amount(arr,0,dp);
+        
+        
     }
 }
